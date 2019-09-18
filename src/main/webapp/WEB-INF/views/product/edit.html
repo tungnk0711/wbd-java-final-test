@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chỉnh sửa mặt hàng</title>
+
+    <style>
+        input[type=text], select {
+            width: 350px;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type=submit] {
+            width: 110px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0 8px 8px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right;
+
+        }
+
+    </style>
+
+</head>
+<body>
+<h2>Chỉnh sửa mặt hàng <span th:text="${product.getName()}"></span></h2>
+<form th:action="@{/edit-product}" th:object="${product}" method="post">
+    <input th:type="hidden" name="id" th:field="*{id}">
+    <input th:type="hidden" name="createDate" th:field="*{createDate}">
+    <table>
+        <tr>
+            <td>Tên hàng:</td>
+            <td><input type="text" th:field="*{name}"/></td>
+        </tr>
+        <tr>
+            <td>Loại hàng:</td>
+            <td>
+                <select th:field="*{category}">
+                    <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"></option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Giá:</td>
+            <td><input type="text" th:field="*{price}"/></td>
+        </tr>
+        <tr>
+            <td>Số lượng:</td>
+            <td><input type="text" th:field="*{quantity}"/></td>
+        </tr>
+        <tr>
+            <td>Mô tả:</td>
+            <td>
+                <textarea rows="5" cols="55" th:field="*{description}"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input class="break" type="submit" value="Thoát">
+                <input type="submit" value="Sửa mặt hàng">
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

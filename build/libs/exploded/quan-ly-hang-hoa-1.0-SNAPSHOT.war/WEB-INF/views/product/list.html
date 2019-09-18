@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách mặt hàng</title>
+    <style>
+        #products {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #products td, #customers th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #products tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #products tr:hover {
+            background-color: #ddd;
+        }
+
+        #products th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .add-product {
+            width: 85px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            float: right;
+            font: 400 11px system-ui;
+        }
+
+        .title {
+            text-align: center;
+        }
+
+        .search-product {
+            float: left;
+        }
+
+        input[type=text] {
+            width: 200px;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type=submit] {
+            width: 80px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+    </style>
+
+</head>
+<body>
+<h2 class="title">Danh sách mặt hàng</h2>
+<div>
+    <form class="search-product" th:action="@{/search-product}" method="get">
+        Nhập tên hàng:<input type="text" name="product-name">
+        <input type="submit" value="Tìm kiếm">
+    </form>
+    <a class="add-product" href="/create-product">Thêm mặt hàng</a>
+</div>
+
+<table id="products">
+    <tr>
+        <th>#</th>
+        <th>Tên hàng</th>
+        <th>Loại hàng</th>
+        <th></th>
+    </tr>
+    <th:block th:each="product,iterStat : ${products}" th:class="${iterStat.odd}? 'odd'">
+        <tr>
+            <td th:text="${iterStat.index + 1}"></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.category.name}"></td>
+            <td>
+                <a th:href="@{/edit-product/__${product.id}__}">Chỉnh sửa</a>|
+                <a th:href="@{/delete-product/__${product.id}__}">Xoá</a>
+            </td>
+        </tr>
+    </th:block>
+</table>
+
+</body>
+</html>

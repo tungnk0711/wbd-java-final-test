@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Xoá mặt hàng</title>
+    <style>
+        input[type=text], select {
+            width: 350px;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type=submit] {
+            width: 110px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0px 8px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: left;
+        }
+
+
+    </style>
+
+</head>
+<body>
+<h2 class="title">Xoá mặt hàng</h2>
+<span>Bạn có chắc chắn muốn xoá mặt hàng </span><span th:text="${product.getName()}"></span> ?
+<form th:action="@{/remove-product}" th:object="${product}" method="get">
+    <input type="hidden" name="id" th:value="${product.getId()}">
+    <input class="break" type="submit" value="Thoát">
+    <input type="submit" value="Xoá mặt hàng">
+</form>
+</body>
+</html>
